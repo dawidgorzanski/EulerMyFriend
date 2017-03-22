@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleGraph.Model
+namespace EulerMyFriend.Model
 {
     //Pamiętać o zamknięciu pliku - można użyć "using(new ..." i wtedy plik się zawsze zamknie
     public static class SaveOpenGraph

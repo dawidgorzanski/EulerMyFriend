@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleGraph.Model
+namespace EulerMyFriend.Model
 {
     public static class GraphCreator
     {
@@ -53,11 +53,13 @@ namespace SimpleGraph.Model
             return fullGraph;
         }
 
+
         //TODO - zadanie 1 cz. 2 - utworzenie grafu z sekwencji liczb naturalnych
         public static Graph CreateGraphFromNodesDegrees(/*lista/tablica liczba naturalnych*/)
         {
             return new Graph();
         }
+
 
         //TODO - zadanie 2 - nie wiem czy dobrze wykminiłem w tym zadaniu - mamy utworzyć graf z innego grafu, ale zmieniając
         //połaczenia między wierzchołkami?

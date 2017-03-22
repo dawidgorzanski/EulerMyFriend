@@ -1,4 +1,4 @@
-﻿using SimpleGraph.Model;
+﻿using EulerMyFriend.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +80,12 @@ namespace EulerMyFriend
                 {
                     draw.ClearAll();
 
-                    draw.CurrentGraph = GraphCreator.CreateFromMatrix(graphMatrix);
+                    Graph ToDraw = GraphCreator.CreateFromMatrix(graphMatrix);
+
+                    //ZAD3
+                    StronglyConnectedComponent.Find(ref ToDraw);
+
+                    draw.CurrentGraph = ToDraw;
 
                     draw.NodeRadius = (int)sliderNodeRadius.Value;
                     draw.Radius = (int)sliderRadius.Value;

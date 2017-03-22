@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleGraph.Model
+namespace EulerMyFriend.Model
 {
     public class Graph
     {

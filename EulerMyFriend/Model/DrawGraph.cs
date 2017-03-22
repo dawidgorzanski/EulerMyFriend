@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SimpleGraph.Model
+namespace EulerMyFriend.Model
 {
     //Ta klasa będzie jeszcze zmieniana - będzie przyjmować obiekt Graph i na jego podstawie rysować graf
     public class DrawGraph
@@ -77,6 +77,14 @@ namespace SimpleGraph.Model
                 Canvas.SetLeft(ellipse, x);
                 Canvas.SetTop(ellipse, y);
                 _canvas.Children.Add(ellipse);
+
+                Label label = new Label();
+                label.Height = 50;
+                label.Width = 50;
+                label.Content = CurrentGraph.Nodes[i].ID;
+                Canvas.SetLeft(label, x - 15);
+                Canvas.SetTop(label, y - 15);
+                _canvas.Children.Add(label);
             }
         }
 
@@ -92,22 +100,27 @@ namespace SimpleGraph.Model
             //Rysowanie linii
             foreach(Connection connection in CurrentGraph.Connections)
             {
-                DrawLine(connection.Node1.PointOnScreen, connection.Node2.PointOnScreen);
+                DrawLine(connection.Node1, connection.Node2);
             }
 
             return true;
         }
 
         //rysowanie linii od punktu node1 do punktu node2
-        private void DrawLine(Point node1, Point node2)
+        private void DrawLine(Node node1, Node node2)
         {
             Line line = new Line();
             line.StrokeThickness = 1;
-            line.SetResourceReference(Line.StrokeProperty, "ColorLines");
-            line.X1 = node1.X + NodeRadius / 2;
-            line.X2 = node2.X + NodeRadius / 2;
-            line.Y1 = node1.Y + NodeRadius / 2;
-            line.Y2 = node2.Y + NodeRadius / 2;
+            
+            if (node1.StronglyConnectedComponent && node2.StronglyConnectedComponent)
+                line.Stroke = Brushes.Red;
+            else
+                line.SetResourceReference(Line.StrokeProperty, "ColorLines");
+
+            line.X1 = node1.PointOnScreen.X + NodeRadius / 2;
+            line.X2 = node2.PointOnScreen.X + NodeRadius / 2;
+            line.Y1 = node1.PointOnScreen.Y + NodeRadius / 2;
+            line.Y2 = node2.PointOnScreen.Y + NodeRadius / 2;
             //Insert() zamiast Add(), aby linie były "pod spodem" - liczy się kolejność dodawania, im dalej na liście tym "wyżej"
             _canvas.Children.Insert(0, line);
         }

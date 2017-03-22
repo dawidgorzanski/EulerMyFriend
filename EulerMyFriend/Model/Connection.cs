@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleGraph.Model
+namespace EulerMyFriend.Model
 {
     //TODO Prawdopodobnie trzeba będzie rozbudować klase
     public class Connection

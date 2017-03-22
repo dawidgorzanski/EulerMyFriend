@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EulerMyFriend"
         xmlns:xtlk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
-        Title="Simple Graph" Height="768" Width="1366" WindowState="Maximized">
+        Title="Euler My Friend" Height="768" Width="1366" WindowState="Maximized" Icon="/EulerMyFriend;component/Graphics/icon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" Name="col1"/>

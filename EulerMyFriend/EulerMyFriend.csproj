@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Graphics\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -131,6 +134,7 @@
     <Compile Include="Model\Graph.cs" />
     <Compile Include="Model\GraphCreator.cs" />
     <Compile Include="Model\GraphStringValidator.cs" />
+    <Compile Include="Model\StronglyConnectedComponent.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\SaveOpenGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -160,7 +164,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Graphics\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
