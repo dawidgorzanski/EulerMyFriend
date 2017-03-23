@@ -13,5 +13,6 @@ namespace EulerMyFriend.Model
         //Początkowo null
         public Point PointOnScreen { get; set; }
         public bool StronglyConnectedComponent { get; set; }
+        public int GraphicalStringConnections { get; set; }
     }
 }
