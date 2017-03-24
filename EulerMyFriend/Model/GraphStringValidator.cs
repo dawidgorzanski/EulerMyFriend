@@ -8,7 +8,6 @@ namespace EulerMyFriend.Model
 {
     public static class GraphStringValidator
     {
-        //TODO - zadanie 1 cz. 1 - walidacja czy sekwencja liczb naturalnych jest ciągiem graficzny
         public static bool IsGraphString(List<int> graphicalStringGraph)
         {
             List<int> checkedList = new List<int> (graphicalStringGraph);
@@ -16,10 +15,10 @@ namespace EulerMyFriend.Model
             if (total % 2 == 1) //Jesli nieparzysta suma stopni wierzcholkow - sorry, jednak nie
                 return false;
             var counter = checkedList.Count;
+            checkedList.Sort((x, y) => x.CompareTo(y));
 
             while (checkedList.Count > 0)
             {
-                checkedList.Sort((x, y) => x.CompareTo(y));
                 var current = checkedList[counter - 1];
                 var indexGoingDown = 2;
                 while (current > 0)
@@ -32,6 +31,7 @@ namespace EulerMyFriend.Model
 
 
                 checkedList.RemoveAt((counter--)-1);
+                checkedList.Sort((x, y) => x.CompareTo(y));
             }
 
             return true;
@@ -61,12 +61,6 @@ namespace EulerMyFriend.Model
                 var indexGoingDown = 2;
                 while (current.GraphicalStringConnections > 0)
                 {
-                    if (graphString.Nodes[counter - indexGoingDown].GraphicalStringConnections == 0)
-                    {
-                        return new Graph();
-                    }
-                    if (counter - indexGoingDown < 0)
-                        return new Graph();
                     Connection addedConnection = new Connection { Node1 = current, Node2 = graphString.Nodes[counter-indexGoingDown] };
                     graphString.AddConnection(addedConnection);
 
