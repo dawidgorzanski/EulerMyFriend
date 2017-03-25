@@ -36,6 +36,5 @@ namespace EulerMyFriend.Model
 
             return true;
         }
-        
     }
 }
