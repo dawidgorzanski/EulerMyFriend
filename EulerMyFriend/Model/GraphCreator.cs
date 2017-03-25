@@ -55,16 +55,72 @@ namespace EulerMyFriend.Model
 
 
         //TODO - zadanie 1 cz. 2 - utworzenie grafu z sekwencji liczb naturalnych
-        public static Graph CreateGraphFromNodesDegrees(/*lista/tablica liczba naturalnych*/)
+        public static Graph CreateGraphFromNodesDegrees(List<int> graphicalStringGraph)
         {
-            return new Graph();
+            // Wprowadzana lista to wartosci stopni wierzcholkow
+            Graph graphString = new Graph();
+
+            int counter = graphicalStringGraph.Count;
+
+            if (!GraphStringValidator.IsGraphString(graphicalStringGraph))
+                return new Graph();
+
+
+            for (int i = 0; i < counter; i++)
+            {
+                graphString.Nodes.Add(new Node() { ID = i, GraphicalStringConnections = graphicalStringGraph[i] });
+            }
+
+
+            graphString.Nodes.Sort((x, y) => x.GraphicalStringConnections.CompareTo(y.GraphicalStringConnections));
+            while (graphString.Nodes.FindLastIndex(x => x.GraphicalStringConnections == 0) < graphString.Nodes.Count - 1)
+            {
+                var current = graphString.Nodes[counter - 1];
+                var indexGoingDown = 2;
+                while (current.GraphicalStringConnections > 0)
+                {
+                    Connection addedConnection = new Connection { Node1 = current, Node2 = graphString.Nodes[counter - indexGoingDown] };
+                    graphString.AddConnection(addedConnection);
+
+                    graphString.Nodes[counter - indexGoingDown++].GraphicalStringConnections -= 1;
+                    current.GraphicalStringConnections--;
+                }
+
+                graphString.Nodes.Sort((x, y) => x.GraphicalStringConnections.CompareTo(y.GraphicalStringConnections));
+            }
+
+
+            return graphString;
         }
 
 
         //TODO - zadanie 2 - nie wiem czy dobrze wykminiłem w tym zadaniu - mamy utworzyć graf z innego grafu, ale zmieniając
         //połaczenia między wierzchołkami?
-        public static Graph RandomizeGraph(Graph OldGraph)
+        public static Graph RandomizeGraph(Graph oldGraph)
         {
+            int connectionsCount = oldGraph.Connections.Count;
+            if (connectionsCount > 2)
+                return new Graph();
+            Random rnd = new Random();
+            int countChanges = 3; // Pewnie do zmiany, ilosc randomizacji najpewniej zrobimy przekazujac argument do funkcji
+            while (countChanges > 0)
+            {
+                int id1 = rnd.Next(0, connectionsCount);
+                int id2 = rnd.Next(0, connectionsCount);
+                if (id1 == id2)
+                    continue;
+                Connection c1 = oldGraph.Connections[id1];
+                Connection c2 = oldGraph.Connections[id2];
+                if (c1.Node1.ID == c2.Node1.ID || c1.Node1.ID == c2.Node2.ID || c1.Node2.ID == c2.Node1.ID ||
+                    c1.Node2.ID == c2.Node2.ID)
+                    continue;
+                Node b = c1.Node2;
+                Node d = c2.Node2;
+                c1.Node2 = d;
+                c2.Node2 = b;
+
+                countChanges--;
+            }
             return new Graph();
         }
     }
