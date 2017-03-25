@@ -99,7 +99,7 @@ namespace EulerMyFriend.Model
         public static Graph RandomizeGraph(Graph oldGraph)
         {
             int connectionsCount = oldGraph.Connections.Count;
-            if (connectionsCount < 2)
+            if (connectionsCount > 2)
                 return new Graph();
             Random rnd = new Random();
             int countChanges = 3; // Pewnie do zmiany, ilosc randomizacji najpewniej zrobimy przekazujac argument do funkcji
