@@ -12,7 +12,6 @@
 
             <SolidColorBrush x:Key="ColorPoints" Color="Red"/>
             <SolidColorBrush x:Key="ColorCircle" Color="Green"/>
-            <SolidColorBrush x:Key="ColorLines" Color="Black"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -13,16 +13,8 @@ namespace EulerMyFriend.Model
     //Ta klasa będzie jeszcze zmieniana - będzie przyjmować obiekt Graph i na jego podstawie rysować graf
     public class DrawGraph
     {
-        private List<Line> _lines;
         private Canvas _canvas;
-        
-        public List<Line> Lines
-        {
-            get
-            {
-                return _lines;
-            }
-        }
+       
         public Graph CurrentGraph { get; set; }
         public int Radius { get; set; }
         public int NodeRadius { get; set; }
@@ -31,13 +23,6 @@ namespace EulerMyFriend.Model
         {
             this.CurrentGraph = graph;
             this._canvas = canvas;
-            InitializeLists();
-        }
-
-        //inicjalizacja _nodesPoints oraz _lines
-        private void InitializeLists()
-        {
-            _lines = new List<Line>();
         }
 
         //rysowanie głównego koła
@@ -100,36 +85,35 @@ namespace EulerMyFriend.Model
             //Rysowanie linii
             foreach(Connection connection in CurrentGraph.Connections)
             {
-                DrawLine(connection.Node1, connection.Node2);
+                DrawLine(connection);
             }
 
             return true;
         }
 
         //rysowanie linii od punktu node1 do punktu node2
-        private void DrawLine(Node node1, Node node2)
+        private void DrawLine(Connection connection)
         {
             Line line = new Line();
             line.StrokeThickness = 1;
-            
-            if (node1.StronglyConnectedComponent && node2.StronglyConnectedComponent)
-                line.Stroke = Brushes.Red;
-            else
-                line.SetResourceReference(Line.StrokeProperty, "ColorLines");
 
-            line.X1 = node1.PointOnScreen.X + NodeRadius / 2;
-            line.X2 = node2.PointOnScreen.X + NodeRadius / 2;
-            line.Y1 = node1.PointOnScreen.Y + NodeRadius / 2;
-            line.Y2 = node2.PointOnScreen.Y + NodeRadius / 2;
+            line.Stroke = connection.LineColor;
+
+            line.X1 = connection.Node1.PointOnScreen.X + NodeRadius / 2;
+            line.X2 = connection.Node2.PointOnScreen.X + NodeRadius / 2;
+            line.Y1 = connection.Node1.PointOnScreen.Y + NodeRadius / 2;
+            line.Y2 = connection.Node2.PointOnScreen.Y + NodeRadius / 2;
             //Insert() zamiast Add(), aby linie były "pod spodem" - liczy się kolejność dodawania, im dalej na liście tym "wyżej"
             _canvas.Children.Insert(0, line);
         }
 
-        public void ClearAll()
+        public void ClearAll(bool OnlyView = true)
         {
+            //OnlyView - czyści tylko "rysunek"
             //żeby nie było null
-            CurrentGraph = GraphCreator.CreateFullGraph();
-            _lines.Clear();
+            if (!OnlyView)
+                CurrentGraph = GraphCreator.CreateFullGraph();
+
             _canvas.Children.Clear();
         }
     }

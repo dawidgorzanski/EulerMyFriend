@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace EulerMyFriend.Model
 {
     public class StronglyConnectedComponent
     {
-        public static void Find(ref Graph refGraph)
+        public static void Find(Graph refGraph)
         {
             //inicjalizacja zmiennych
             Graph graph = refGraph;
@@ -74,12 +75,18 @@ namespace EulerMyFriend.Model
                 }
             }
 
-            for (int j = 0; j < graph.Nodes.Count; j++)
+            for (int i = 0; i < graph.Nodes.Count; i++)
             {
-                if (C[j] == maxValue)
+                if (C[i] == maxValue)
                 {
-                    graph.Nodes.First(x => x.ID == j).StronglyConnectedComponent = true;
+                    graph.Nodes.First(x => x.ID == i).StronglyConnectedComponent = true;
                 }
+            }
+
+            for (int i = 0; i < graph.Connections.Count; i++)
+            {
+                if (graph.Connections[i].Node1.StronglyConnectedComponent && graph.Connections[i].Node2.StronglyConnectedComponent)
+                    graph.Connections[i].LineColor = Brushes.Red;
             }
         }
     }

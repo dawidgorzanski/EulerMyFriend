@@ -24,33 +24,29 @@
                 <Label Content="Promień punktu: " />
                 <Slider Name="sliderNodeRadius" Minimum="6" Maximum="40" IsSnapToTickEnabled="True" TickFrequency="2" Value="10"/>
 
-                <GroupBox Header="Graf losowy G(n, l)">
+                <GroupBox Header="Ciąg graficzny">
                     <StackPanel>
                         <DockPanel>
-                            <Label Content="Liczba punktów: " Width="105"/>
-                            <xtlk:IntegerUpDown Name="intUpDownRandomPoints1" Height="28" Minimum="0" Value="10"/>
+                            <Label Content="Sekwencja: " Width="105"/>
+                            <TextBox Name="tbGraphString" />
                         </DockPanel>
+                        <Button Name="btnDrawGraphFromNodesDegrees" Content="RYSUJ GRAF" Margin="0,10,0,0" Click="btnDrawGraphFromNodesDegrees_Click"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <GroupBox Header="Randomizacja">
+                    <StackPanel>
                         <DockPanel>
-                            <Label Content="Liczba połączeń: " Width="105"/>
-                            <xtlk:IntegerUpDown Name="intUpDownConnections" Height="28" Minimum="0" Value="10"/>
+                            <Label Content="Liczba zmian: " Width="105"/>
+                            <xtlk:IntegerUpDown Name="intUpDownNumberOfChanges" Height="28" Minimum="0" Value="5"/>
                         </DockPanel>
-
-                        <Button Name="btnDrawRandomGraphFromLines" Content="RYSUJ GRAF" Margin="0,10,0,0" Click="btnDrawRandomGraphFromLines_Click"/>
+                        <Button Name="btnRandomizeGraph" Content="RANDOMIZUJ" Margin="0,10,0,0" Click="btnRandomizeGraph_Click"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Graf losowy G(n, p)">
+                <GroupBox Header="Największa spójna składowa">
                     <StackPanel>
-                        <DockPanel>
-                            <Label Content="Liczba punktów: " Width="105"/>
-                            <xtlk:IntegerUpDown Name="intUpDownRandomPoints2" Height="28" Minimum="0" Value="10"/>
-                        </DockPanel>
-                        <DockPanel>
-                            <Label Content="Liczba połączeń: " Width="105"/>
-                            <xtlk:DoubleUpDown Name="doubleUpDownProbability" Height="28" Minimum="0.0" Maximum="1.0" Value="0.5" Increment="0.05" FormatString="0.##"/>
-                        </DockPanel>
-
-                        <Button Name="btnDrawRandomGraphFromProbability" Content="RYSUJ GRAF" Margin="0,10,0,0" Click="btnDrawRandomGraphFromProbability_Click"/>
+                        <Button Name="btnFindStronglyConnectedComponent" Content="ZNAJDŹ" Click="btnFindStronglyConnectedComponent_Click"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -72,11 +68,6 @@
                     <Label Content="Kolor okręgu: " Width="105"/>
                     <xtlk:ColorPicker Name="colorPickerCircle" AdvancedButtonHeader="Zaawansowane" AvailableColorsHeader="Dostępne kolory" 
                                       StandardButtonHeader="Standardowe" StandardColorsHeader="Kolory standardowe" SelectedColorChanged="colorPickerCircle_SelectedColorChanged"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Kolor linii: " Width="105"/>
-                    <xtlk:ColorPicker Name="colorPickerLines" AdvancedButtonHeader="Zaawansowane" AvailableColorsHeader="Dostępne kolory" 
-                                      StandardButtonHeader="Standardowe" StandardColorsHeader="Kolory standardowe" SelectedColorChanged="colorPickerLines_SelectedColorChanged"/>
                 </DockPanel>
             </StackPanel>
         </Border>

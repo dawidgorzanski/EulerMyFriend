@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace EulerMyFriend.Model
 {
@@ -124,6 +125,15 @@ namespace EulerMyFriend.Model
             }
             
             return finalString;
+        }
+
+        public void ResetStronglyConnections()
+        {
+            for (int i = 0; i < _nodes.Count; i++)
+                _nodes[i].StronglyConnectedComponent = false;
+
+            for (int i = 0; i < _connections.Count; i++)
+                _connections[i].LineColor = Brushes.Black;
         }
 
     }

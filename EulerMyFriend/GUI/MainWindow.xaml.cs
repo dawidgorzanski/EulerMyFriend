@@ -32,24 +32,12 @@ namespace EulerMyFriend
         private void InitializeColorPickers()
         {
             colorPickerCircle.SelectedColor = Colors.Green;
-            colorPickerLines.SelectedColor = Colors.Black;
             colorPickerPoints.SelectedColor = Colors.Red;
-        }
-
-
-        private void btnDrawRandomGraphFromLines_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void btnDrawRandomGraphFromProbability_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            draw.ClearAll();
+            draw.ClearAll(false);
         }
 
         private void colorPickerPoints_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -60,11 +48,6 @@ namespace EulerMyFriend
         private void colorPickerCircle_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             Resources["ColorCircle"] = new SolidColorBrush((Color)colorPickerCircle.SelectedColor);
-        }
-
-        private void colorPickerLines_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            Resources["ColorLines"] = new SolidColorBrush((Color)colorPickerLines.SelectedColor);
         }
 
         private void btnOpenFromFile_Click(object sender, RoutedEventArgs e)
@@ -80,12 +63,7 @@ namespace EulerMyFriend
                 {
                     draw.ClearAll();
 
-                    Graph ToDraw = GraphCreator.CreateFromMatrix(graphMatrix);
-
-                    //ZAD3
-                    StronglyConnectedComponent.Find(ref ToDraw);
-
-                    draw.CurrentGraph = ToDraw;
+                    draw.CurrentGraph = GraphCreator.CreateFromMatrix(graphMatrix);
 
                     draw.NodeRadius = (int)sliderNodeRadius.Value;
                     draw.Radius = (int)sliderRadius.Value;
@@ -131,6 +109,71 @@ namespace EulerMyFriend
                         }
                 }
             }
+        }
+
+        private void btnDrawGraphFromNodesDegrees_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(tbGraphString.Text))
+            {
+                MessageBox.Show("Nie podano ciągu graficznego!");
+                return;
+            }
+
+            try
+            {
+                var list = tbGraphString.Text.Trim().Split(' ').Select(Int32.Parse).ToList();
+
+                draw.ClearAll();
+                draw.CurrentGraph = GraphCreator.CreateGraphFromNodesDegrees(list);           
+
+                if (draw.CurrentGraph.Nodes.Count == 0)
+                {
+                    MessageBox.Show("Z podanego ciągu graficznego nie można utworzyć grafu!");
+                    return;
+                }
+
+                draw.NodeRadius = (int)sliderNodeRadius.Value;
+                draw.Radius = (int)sliderRadius.Value;
+
+                draw.DrawMainCircle();
+                draw.Draw();
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Podany ciąg graficzny nie jest poprawny!");
+            }
+        }
+
+        private void btnRandomizeGraph_Click(object sender, RoutedEventArgs e)
+        {
+            if (intUpDownNumberOfChanges.Value != null && draw.CurrentGraph.Nodes.Count > 0)
+            {
+                draw.ClearAll();
+                GraphCreator.RandomizeGraph(draw.CurrentGraph, (int)intUpDownNumberOfChanges.Value);
+                draw.NodeRadius = (int)sliderNodeRadius.Value;
+                draw.Radius = (int)sliderRadius.Value;
+
+                draw.DrawMainCircle();
+                draw.Draw();
+            }
+            else
+                MessageBox.Show("Niepoprawna ilość zmian, bądź aktualny graf!");
+        }
+
+        private void btnFindStronglyConnectedComponent_Click(object sender, RoutedEventArgs e)
+        {
+            if (draw.CurrentGraph.Nodes.Count > 0)
+            {
+                draw.ClearAll();
+                StronglyConnectedComponent.Find(draw.CurrentGraph);
+
+                draw.NodeRadius = (int)sliderNodeRadius.Value;
+                draw.Radius = (int)sliderRadius.Value;
+
+                draw.DrawMainCircle();
+                draw.Draw();
+            }          
         }
     }
 }

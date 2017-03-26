@@ -54,7 +54,7 @@ namespace EulerMyFriend.Model
         }
 
 
-        //TODO - zadanie 1 cz. 2 - utworzenie grafu z sekwencji liczb naturalnych
+        //Tworzenie grafu ze stopni wierzchołków
         public static Graph CreateGraphFromNodesDegrees(List<int> graphicalStringGraph)
         {
             // Wprowadzana lista to wartosci stopni wierzcholkow
@@ -94,15 +94,17 @@ namespace EulerMyFriend.Model
         }
 
 
-        //TODO - zadanie 2 - nie wiem czy dobrze wykminiłem w tym zadaniu - mamy utworzyć graf z innego grafu, ale zmieniając
-        //połaczenia między wierzchołkami?
-        public static Graph RandomizeGraph(Graph oldGraph)
+        //Randomizacja grafu
+        public static void RandomizeGraph(Graph oldGraph, int countChanges)
         {
+            // Po randomizacji zmienia się najwieksza spójna składowa, dlatego resetuje
+            oldGraph.ResetStronglyConnections();
+
             int connectionsCount = oldGraph.Connections.Count;
-            if (connectionsCount > 2)
-                return new Graph();
+            //po co ten warunek był? Z nim nie bardzo działa...
+            //if (connectionsCount > 2)
+            //    return false;
             Random rnd = new Random();
-            int countChanges = 3; // Pewnie do zmiany, ilosc randomizacji najpewniej zrobimy przekazujac argument do funkcji
             while (countChanges > 0)
             {
                 int id1 = rnd.Next(0, connectionsCount);
@@ -121,7 +123,6 @@ namespace EulerMyFriend.Model
 
                 countChanges--;
             }
-            return new Graph();
         }
     }
 }
