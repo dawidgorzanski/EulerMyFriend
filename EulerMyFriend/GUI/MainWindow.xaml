@@ -44,9 +44,10 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Największa spójna składowa">
+                <GroupBox Header="Operacje">
                     <StackPanel>
-                        <Button Name="btnFindStronglyConnectedComponent" Content="ZNAJDŹ" Click="btnFindStronglyConnectedComponent_Click"/>
+                        <Button Name="btnFindStronglyConnectedComponent" Content="Znajdź największą spójną składową" Click="btnFindStronglyConnectedComponent_Click"/>
+                        <Button Name="btnHamiltonianGraph" Content="Sprawdź czy graf jest hamiltonowski" Click="btnHamiltonianGraph_Click" Margin="0, 5, 0, 0"/>
                     </StackPanel>
                 </GroupBox>
 

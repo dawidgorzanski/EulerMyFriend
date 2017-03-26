@@ -134,6 +134,7 @@
     <Compile Include="Model\Graph.cs" />
     <Compile Include="Model\GraphCreator.cs" />
     <Compile Include="Model\GraphStringValidator.cs" />
+    <Compile Include="Model\HamiltonianPath.cs" />
     <Compile Include="Model\StronglyConnectedComponent.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\SaveOpenGraph.cs" />

@@ -175,5 +175,26 @@ namespace EulerMyFriend
                 draw.Draw();
             }          
         }
+
+        private void btnHamiltonianGraph_Click(object sender, RoutedEventArgs e)
+        {
+            if (draw.CurrentGraph.Nodes.Count > 0)
+            {
+                if (HamiltonPath.CheckHamiltonPath(draw.CurrentGraph))
+                {
+                    draw.ClearAll();
+                    draw.NodeRadius = (int)sliderNodeRadius.Value;
+                    draw.Radius = (int)sliderRadius.Value;
+
+                    draw.DrawMainCircle();
+                    draw.Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Na tym grafie nie istnieje cykl Hamiltona!");
+                }               
+
+            }
+        }
     }
 }
