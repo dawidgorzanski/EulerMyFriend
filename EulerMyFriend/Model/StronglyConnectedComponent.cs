@@ -20,17 +20,17 @@ namespace EulerMyFriend.Model
 
             //zerowanie tablicy indeksów grafów
             for (int i = 0; i < graph.Nodes.Count; i++)
-                C[i] = 0;
+                C[graph.Nodes[i].ID] = 0;
 
             //zaczynamy od każdego wierzchołka po kolei
             for (int i = 0; i < graph.Nodes.Count; i++ )
             {
-                if (C[i] > 0)
+                if (C[graph.Nodes[i].ID] > 0)
                     continue;
 
                 cn++;
                 S.Push(graph.Nodes[i]);
-                C[i] = cn;
+                C[graph.Nodes[i].ID] = cn;
 
                 while (S.Count > 0)
                 {
