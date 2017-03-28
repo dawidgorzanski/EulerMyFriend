@@ -89,6 +89,7 @@ namespace EulerMyFriend.Model
                 graphString.Nodes.Sort((x, y) => x.GraphicalStringConnections.CompareTo(y.GraphicalStringConnections));
             }
 
+            graphString.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
 
             return graphString;
         }
@@ -101,10 +102,28 @@ namespace EulerMyFriend.Model
             oldGraph.ResetStronglyConnections();
 
             int connectionsCount = oldGraph.Connections.Count;
-            //po co ten warunek był? Z nim nie bardzo działa...
-            //if (connectionsCount > 2)
-            //    return false;
+            if (connectionsCount < 2)
+                return;
+            int[] conns;
+            conns = new int[oldGraph.Nodes.Count];
+            for (int i = 0; i < oldGraph.Nodes.Count; ++i)
+                oldGraph.Nodes[i].GraphicalStringConnections = 0;
+            for (int i = 0; i < oldGraph.Connections.Count; ++i)
+            {
+                oldGraph.Nodes[oldGraph.Connections[i].Node1.ID].GraphicalStringConnections++;
+                oldGraph.Nodes[oldGraph.Connections[i].Node2.ID].GraphicalStringConnections++;
+            }
+            oldGraph.Nodes.Sort((x, y) => x.GraphicalStringConnections.CompareTo(y.GraphicalStringConnections));
+            if (oldGraph.Nodes.FindLastIndex(x => x.GraphicalStringConnections == 1) >= oldGraph.Nodes.Count - 2)
+            {
+                oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
+                return;
+            }
+            oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
+
+
             Random rnd = new Random();
+            Connection emptyConnection = oldGraph.Connections.Find(x => x.Node1.ID == 123123123);
             while (countChanges > 0)
             {
                 int id1 = rnd.Next(0, connectionsCount);
@@ -118,8 +137,15 @@ namespace EulerMyFriend.Model
                     continue;
                 Node b = c1.Node2;
                 Node d = c2.Node2;
+                Connection check1 = oldGraph.Connections.Find(x => (x.Node1.ID == c1.Node1.ID && x.Node2.ID == d.ID));
+                if (check1 != emptyConnection)
+                    continue;
+                check1 = oldGraph.Connections.Find(x => (x.Node1.ID == c2.Node1.ID && x.Node2.ID == b.ID));
+                if (check1 != emptyConnection)
+                    continue;
                 c1.Node2 = d;
                 c2.Node2 = b;
+
 
                 countChanges--;
             }
