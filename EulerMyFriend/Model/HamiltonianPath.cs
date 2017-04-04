@@ -105,5 +105,31 @@ namespace EulerMyFriend.Model
                 ActualPath.RemoveAt(ActualPath.Count - 1); ; // wyrzucam wierzcholek v, ktory jest slepym zaulkiem
             }
         }
+
+        public static Graph construct_k_regular_graph(int n, int k)  // n - liczba wierzcholkow,   k - liczba krawedzi jakie maja wychodzic z jednego wierzcholka
+        {
+            Graph finalGraph = new Graph();
+            List<int> GraphList = new List<int>();
+            for (int i = 0; i < n; ++i)
+            {
+                GraphList.Add(k);
+            }
+
+            if (GraphStringValidator.IsGraphString(GraphList))
+            {
+                finalGraph = GraphCreator.CreateGraphFromNodesDegrees(GraphList);
+                if (k < 3)
+                {
+                    GraphCreator.RandomizeGraph(finalGraph, 1);  // With special thanks to P.Augustyn
+                }
+                else
+                {
+                    GraphCreator.RandomizeGraph(finalGraph, (k / 3));   // With special thanks to P.Augustyn
+                }
+            }
+
+            return finalGraph;
+        }
+
     }
 }
