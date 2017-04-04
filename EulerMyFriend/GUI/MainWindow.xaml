@@ -18,47 +18,53 @@
         </Border>
 
         <Border BorderThickness="1" BorderBrush="LightGray" Grid.Column="1" >
-            <StackPanel Margin="10">
+            <StackPanel Margin="10,0,10,0">
                 <Label Content="Promień okręgu: " />
                 <Slider Name="sliderRadius" Minimum="100" Maximum="300" IsSnapToTickEnabled="True" TickFrequency="10" Value="200" />
                 <Label Content="Promień punktu: " />
                 <Slider Name="sliderNodeRadius" Minimum="6" Maximum="40" IsSnapToTickEnabled="True" TickFrequency="2" Value="10"/>
 
                 <GroupBox Header="Ciąg graficzny">
-                    <StackPanel>
+                    <StackPanel Margin="0,-10,0,-10">
                         <DockPanel>
                             <Label Content="Sekwencja: " Width="105"/>
                             <TextBox Name="tbGraphString" />
                         </DockPanel>
-                        <Button Name="btnDrawGraphFromNodesDegrees" Content="RYSUJ GRAF" Margin="0,10,0,0" Click="btnDrawGraphFromNodesDegrees_Click"/>
+                        <Button Name="btnDrawGraphFromNodesDegrees" Content="RYSUJ GRAF" Margin="0,5,0,0" Click="btnDrawGraphFromNodesDegrees_Click"/>
                     </StackPanel>
                 </GroupBox>
                 
                 <GroupBox Header="Randomizacja">
-                    <StackPanel>
+                    <StackPanel Margin="0,-10,0,-10">
                         <DockPanel>
                             <Label Content="Liczba zmian: " Width="105"/>
                             <xtlk:IntegerUpDown Name="intUpDownNumberOfChanges" Height="28" Minimum="0" Value="5"/>
                         </DockPanel>
-                        <Button Name="btnRandomizeGraph" Content="RANDOMIZUJ" Margin="0,10,0,0" Click="btnRandomizeGraph_Click"/>
+                        <Button Name="btnRandomizeGraph" Content="RANDOMIZUJ" Margin="0,5,0,0" Click="btnRandomizeGraph_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Graf k-regularny">
+                    <StackPanel Margin="0,-10,0,-10">
+                        <DockPanel>
+                            <Label Content="Wierzchołki: " Width="100"/>
+                            <xtlk:IntegerUpDown Name="intUpDownNodes" Height="28" Minimum="0" Value="5"/>
+                            <Label Content="Krawędzie: " Width="100" Margin="15,0,0,0"/>
+                            <xtlk:IntegerUpDown Name="intUpDownEdges" Height="28" Minimum="0" Value="5"/>
+                        </DockPanel>
+                        <Button Name="btnCreateKRegularGraph" Content="STWÓRZ GRAF K-REGULARNY" Margin="0,10,0,0" Click="btnCreateKRegularGraph_Click"/>
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="Operacje">
-                    <StackPanel>
+                    <StackPanel Margin="0,-10,0,-10">
                         <Button Name="btnFindStronglyConnectedComponent" Content="Znajdź największą spójną składową" Click="btnFindStronglyConnectedComponent_Click"/>
-                        <Button Name="btnHamiltonianGraph" Content="Sprawdź czy graf jest hamiltonowski" Click="btnHamiltonianGraph_Click" Margin="0, 5, 0, 0"/>
-                    </StackPanel>
-                </GroupBox>
-
-                <GroupBox Header="Otwórz/Zapisz do pliku">
-                    <StackPanel>
-                        <Button Name="btnOpenFromFile" Content="Otwórz plik..." Click="btnOpenFromFile_Click" />
+                        <Button Name="btnHamiltonianGraph" Content="Sprawdź czy graf jest hamiltonowski" Click="btnHamiltonianGraph_Click" Margin="0,5,0,0"/>
+                        <Button Name="btnOpenFromFile" Content="Otwórz plik..." Click="btnOpenFromFile_Click" Margin="0,5,0,0"/>
                         <Button Name="btnSaveToFile" Content="Zapisz do pliku..." Click="btnSaveToFile_Click" Margin="0,5,0,0"/>
+                        <Button Name="btnClear" Content="WYCZYŚĆ" Margin="0,5,0,5" Click="btnClear_Click" />
                     </StackPanel>
                 </GroupBox>
-
-                <Button Name="btnClear" Content="WYCZYŚĆ" Margin="0,5,0,5" Click="btnClear_Click" />
 
                 <DockPanel>
                     <Label Content="Kolor punktów: " Width="105"/>

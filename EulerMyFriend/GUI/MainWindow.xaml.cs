@@ -150,7 +150,11 @@ namespace EulerMyFriend
             if (intUpDownNumberOfChanges.Value != null && draw.CurrentGraph.Nodes.Count > 0)
             {
                 draw.ClearAll();
-                GraphCreator.RandomizeGraph(draw.CurrentGraph, (int)intUpDownNumberOfChanges.Value);
+                if (!GraphCreator.RandomizeGraph(draw.CurrentGraph, (int)intUpDownNumberOfChanges.Value))
+                {
+                    MessageBox.Show("Nie można randomizować grafu!");
+                }
+
                 draw.NodeRadius = (int)sliderNodeRadius.Value;
                 draw.Radius = (int)sliderRadius.Value;
 
@@ -158,7 +162,7 @@ namespace EulerMyFriend
                 draw.Draw();
             }
             else
-                MessageBox.Show("Niepoprawna ilość zmian, bądź aktualny graf!");
+                MessageBox.Show("Niepoprawna ilość zmian, bądź graf!");
         }
 
         private void btnFindStronglyConnectedComponent_Click(object sender, RoutedEventArgs e)
@@ -195,6 +199,23 @@ namespace EulerMyFriend
                 }               
 
             }
+        }
+
+        private void btnCreateKRegularGraph_Click(object sender, RoutedEventArgs e)
+        {
+            if (intUpDownEdges.Value != null && intUpDownNodes.Value != null)
+            {
+                draw.ClearAll();
+                draw.CurrentGraph = HamiltonPath.ConstructKRegularGraph((int)intUpDownNodes.Value, (int)intUpDownEdges.Value);
+
+                draw.NodeRadius = (int)sliderNodeRadius.Value;
+                draw.Radius = (int)sliderRadius.Value;
+
+                draw.DrawMainCircle();
+                draw.Draw();
+            }
+            else
+                MessageBox.Show("Niepoprawna ilość wierzchołków lub krawędzi!");
         }
     }
 }

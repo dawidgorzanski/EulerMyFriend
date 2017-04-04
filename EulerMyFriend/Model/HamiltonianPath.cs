@@ -106,7 +106,7 @@ namespace EulerMyFriend.Model
             }
         }
 
-        public static Graph construct_k_regular_graph(int n, int k)  // n - liczba wierzcholkow,   k - liczba krawedzi jakie maja wychodzic z jednego wierzcholka
+        public static Graph ConstructKRegularGraph(int n, int k)  // n - liczba wierzcholkow,   k - liczba krawedzi jakie maja wychodzic z jednego wierzcholka
         {
             Graph finalGraph = new Graph();
             List<int> GraphList = new List<int>();
