@@ -197,10 +197,10 @@ namespace EulerMyFriend.Model
                      }
                  }
              }
-            CreateEulerPath(result, n, CounterOfConnections);
-            return CreateFromMatrix(result);
+            Graph finalGraph = CreateEulerPath(result, n, CounterOfConnections, CreateFromMatrix(result));
+            return finalGraph;
         }
-        public static void CreateEulerPath(int [,] result, int n, int count)
+        public static Graph CreateEulerPath(int [,] result, int n, int count)
         {
             int CounterOfConnections = count;
             //wypisuje mój eulerowski graf
@@ -208,14 +208,11 @@ namespace EulerMyFriend.Model
             for (int i = 0; i < n; i++)
             {
                 countOfNodes.Add(0);
-                Console.WriteLine();
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write(result[i,j] + " ");
                     if(result[i, j]==1)countOfNodes[i]++;
                 }
                 countOfNodes[i] /= 2;
-                Console.WriteLine("\t"+countOfNodes[i]+"\n");
             }
             //stos moich podcyklów
             List<List<int>> StackOfLists = new List<List<int>>();
@@ -290,9 +287,18 @@ namespace EulerMyFriend.Model
             //złoże teraz mój stos w finalną liste
             List<int> finalList = new List<int>();
             finalList = returnFinalList(StackOfLists,finalList, 0);
-            //Wypisze teraz mój finalny cykl
-            Console.Write("\nMoja Lista to ");
-            foreach (int i in finalList) Console.Write(i + " ");
+            Graph finalGraph = eulersGraph;
+            for (int i=1;i< finalList.Count;i++)
+            {
+                foreach(Connection con in finalGraph.Connections)
+                {
+                    if ((con.Node1.ID == finalList[i-1] && con.Node2.ID == finalList[i]) || (con.Node1.ID == finalList[i] && con.Node2.ID == finalList[i-1]))
+                    {
+                        con.LineColor = Brushes.Green;
+                    }
+                }
+            }
+            return finalGraph;
         }
         public static List<int> returnFinalList(List<List<int>> stack,List<int> final, int ListIndex)
         {
