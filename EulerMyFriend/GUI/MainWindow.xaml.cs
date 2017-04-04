@@ -203,19 +203,20 @@ namespace EulerMyFriend
 
         private void btnCreateKRegularGraph_Click(object sender, RoutedEventArgs e)
         {
-            if (intUpDownEdges.Value != null && intUpDownNodes.Value != null)
+            draw.CurrentGraph = HamiltonPath.ConstructKRegularGraph((int)intUpDownNodes.Value, (int)intUpDownEdges.Value);
+
+            if (draw.CurrentGraph.Nodes.Count == 0)
             {
-                draw.ClearAll();
-                draw.CurrentGraph = HamiltonPath.ConstructKRegularGraph((int)intUpDownNodes.Value, (int)intUpDownEdges.Value);
-
-                draw.NodeRadius = (int)sliderNodeRadius.Value;
-                draw.Radius = (int)sliderRadius.Value;
-
-                draw.DrawMainCircle();
-                draw.Draw();
+                MessageBox.Show("Z podanych wartosci nie można utworzyc grafu k-regularnego!");
+                return;
             }
-            else
-                MessageBox.Show("Niepoprawna ilość wierzchołków lub krawędzi!");
+            draw.ClearAll();
+            draw.NodeRadius = (int)sliderNodeRadius.Value;
+            draw.Radius = (int)sliderRadius.Value;
+
+            draw.DrawMainCircle();
+            draw.Draw();
+
         }
     }
 }
