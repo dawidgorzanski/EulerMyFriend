@@ -96,16 +96,14 @@ namespace EulerMyFriend.Model
 
 
         //Randomizacja grafu
-        public static void RandomizeGraph(Graph oldGraph, int countChanges)
+        public static bool RandomizeGraph(Graph oldGraph, int countChanges)
         {
             // Po randomizacji zmienia się najwieksza spójna składowa, dlatego resetuje
             oldGraph.ResetStronglyConnections();
 
             int connectionsCount = oldGraph.Connections.Count;
             if (connectionsCount < 2)
-                return;
-            int[] conns;
-            conns = new int[oldGraph.Nodes.Count];
+                return false;
             for (int i = 0; i < oldGraph.Nodes.Count; ++i)
                 oldGraph.Nodes[i].GraphicalStringConnections = 0;
             for (int i = 0; i < oldGraph.Connections.Count; ++i)
@@ -117,15 +115,17 @@ namespace EulerMyFriend.Model
             if (oldGraph.Nodes.FindLastIndex(x => x.GraphicalStringConnections == 1) >= oldGraph.Nodes.Count - 2)
             {
                 oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
-                return;
+                return false;
             }
             oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
 
 
             Random rnd = new Random();
             Connection emptyConnection = oldGraph.Connections.Find(x => x.Node1.ID == 123123123);
-            while (countChanges > 0)
+            int secureCounter = 1000;
+            while (countChanges > 0 && secureCounter > 0)
             {
+                secureCounter--;
                 int id1 = rnd.Next(0, connectionsCount);
                 int id2 = rnd.Next(0, connectionsCount);
                 if (id1 == id2)
@@ -145,10 +145,12 @@ namespace EulerMyFriend.Model
                     continue;
                 c1.Node2 = d;
                 c2.Node2 = b;
-
+                if (secureCounter == 0)
+                    return false;
 
                 countChanges--;
             }
+            return true;
         }
     }
 }
