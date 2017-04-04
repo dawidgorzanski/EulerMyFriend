@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,14 +41,14 @@ namespace EulerMyFriend.Model
             //Dodanie połączeń między wierzchołkami
             for (int i = 0; i < Nodes; i++)
             {
-                for (int j = i+1; j < Nodes; j++)
+                for (int j = i + 1; j < Nodes; j++)
                 {
                     Connection connection = new Connection();
                     connection.Node1 = fullGraph.Nodes.FirstOrDefault(x => x.ID == i);
                     connection.Node2 = fullGraph.Nodes.FirstOrDefault(x => x.ID == j);
                     fullGraph.Connections.Add(connection);
                 }
-            }          
+            }
 
             return fullGraph;
         }
@@ -152,14 +152,14 @@ namespace EulerMyFriend.Model
             }
             return true;
         }
-       public static Graph createEulerGraph()
+        public static Graph createEulerGraph()
         {
             Random rand = new Random();
             int CounterOfConnections = 0;
-            int n = 30;
+            int n = 10;
             double b = 0.5;
             //tworze losowy graf o 10 wierzchołkach i stopniu 0.5
-            int[,] result = new int[n,n];
+            int[,] result = new int[n, n];
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < n; j++)
                     result[i, j] = 0;
@@ -174,33 +174,33 @@ namespace EulerMyFriend.Model
             //zmieniam graf aby był eulerowski
 
             for (int i = 0; i < n - 1; i++)
-             {
-                 int deg = 0;
-                 for (int j = 0; j < n; j++)
-                     if (result[i, j] > 0)
-                         deg++;
-                 //check if degree is even
-                 if (deg % 2 != 0)
-                 {
-                     int x = rand.Next(n - i - 1) + i + 1;
-                     if (result[i, x] > 0)
-                     {
-                         result[i, x] = 0;
-                         result[x, i] = 0;
-                         CounterOfConnections--;
-                     }
-                     else
-                     {
-                         result[i, x] = 1;
-                         result[x, i] = 1;
-                         CounterOfConnections++;
-                     }
-                 }
-             }
+            {
+                int deg = 0;
+                for (int j = 0; j < n; j++)
+                    if (result[i, j] > 0)
+                        deg++;
+                //check if degree is even
+                if (deg % 2 != 0)
+                {
+                    int x = rand.Next(n - i - 1) + i + 1;
+                    if (result[i, x] > 0)
+                    {
+                        result[i, x] = 0;
+                        result[x, i] = 0;
+                        CounterOfConnections--;
+                    }
+                    else
+                    {
+                        result[i, x] = 1;
+                        result[x, i] = 1;
+                        CounterOfConnections++;
+                    }
+                }
+            }
             Graph finalGraph = CreateEulerPath(result, n, CounterOfConnections, CreateFromMatrix(result));
             return finalGraph;
         }
-        public static Graph CreateEulerPath(int [,] result, int n, int count)
+        public static Graph CreateEulerPath(int[,] result, int n, int count, Graph eulersGraph)
         {
             int CounterOfConnections = count;
             //wypisuje mój eulerowski graf
@@ -210,7 +210,7 @@ namespace EulerMyFriend.Model
                 countOfNodes.Add(0);
                 for (int j = 0; j < n; j++)
                 {
-                    if(result[i, j]==1)countOfNodes[i]++;
+                    if (result[i, j] == 1) countOfNodes[i]++;
                 }
                 countOfNodes[i] /= 2;
             }
@@ -218,11 +218,11 @@ namespace EulerMyFriend.Model
             List<List<int>> StackOfLists = new List<List<int>>();
 
             //indexy w tablicy sąsiedztwa
-            int x_index =0, y_index=0;
+            int x_index = 0, y_index = 0;
 
             //CounterOfList mówi nam ile list mamy na stosie
             int CounterOfLists = 0;
-            
+
             while (true)
             {
                 if (CounterOfConnections == 0) break;
@@ -230,9 +230,9 @@ namespace EulerMyFriend.Model
                 StackOfLists.Add(new List<int>());
                 //szukam wierzchołka które jeszcze nie jest w żadnym podgrafie
                 //jeżeli nie ma jeszcze żadnego podgrafu to szukam pierwszego lepszego
-                if(CounterOfLists==0)
+                if (CounterOfLists == 0)
                 {
-                    for (int i=0;i<n;i++)
+                    for (int i = 0; i < n; i++)
                     {
                         if (countOfNodes[i] != 0)
                         {
@@ -242,7 +242,7 @@ namespace EulerMyFriend.Model
                 }
                 else
                 {
-                    foreach (int element in StackOfLists[CounterOfLists-1])
+                    foreach (int element in StackOfLists[CounterOfLists - 1])
                     {
                         if (countOfNodes[element] != 0)
                         {
@@ -251,7 +251,7 @@ namespace EulerMyFriend.Model
                     }
                 }
                 //szukam ygrekowej składowej
-                for(int i=0;i<n;i++)
+                for (int i = 0; i < n; i++)
                 {
                     if (result[x_index, i] == 1) y_index = i;
                 }
@@ -267,7 +267,7 @@ namespace EulerMyFriend.Model
                     CounterOfConnections--;
                     //dodało nam wierzchołek do cyklu i teraz sprawdza czy czasem
                     //czasem nie trzeba rzucić nowej listy na stos
-                    for (int i = 0; i <n; i++)
+                    for (int i = 0; i < n; i++)
                     {
                         if (result[y_index, i] == 1)
                         {
@@ -279,45 +279,45 @@ namespace EulerMyFriend.Model
                     }
                     if (noChange)
                     {
-                        break; 
+                        break;
                     }
                 }
                 CounterOfLists++;
             }
             //złoże teraz mój stos w finalną liste
             List<int> finalList = new List<int>();
-            finalList = returnFinalList(StackOfLists,finalList, 0);
+            finalList = returnFinalList(StackOfLists, finalList, 0);
             Graph finalGraph = eulersGraph;
-            for (int i=1;i< finalList.Count;i++)
+            for (int i = 1; i < finalList.Count; i++)
             {
-                foreach(Connection con in finalGraph.Connections)
+                foreach (Connection con in finalGraph.Connections)
                 {
-                    if ((con.Node1.ID == finalList[i-1] && con.Node2.ID == finalList[i]) || (con.Node1.ID == finalList[i] && con.Node2.ID == finalList[i-1]))
+                    if ((con.Node1.ID == finalList[i - 1] && con.Node2.ID == finalList[i]) || (con.Node1.ID == finalList[i] && con.Node2.ID == finalList[i - 1]))
                     {
-                        con.LineColor = Brushes.Green;
+                        con.LineColor = System.Windows.Media.Brushes.Green;
                     }
                 }
             }
             return finalGraph;
         }
-        public static List<int> returnFinalList(List<List<int>> stack,List<int> final, int ListIndex)
+        public static List<int> returnFinalList(List<List<int>> stack, List<int> final, int ListIndex)
         {
             List<int> temp = final;
             temp.Add(stack[ListIndex][0]);
-            for (int i=1;i<stack[ListIndex].Count-1;i++)
+            for (int i = 1; i < stack[ListIndex].Count - 1; i++)
             {
                 //sprawdzam czy czasem nie muszę przeskoczyć na inny graf i go przejś
                 temp.Add(stack[ListIndex][i]);
                 foreach (List<int> list in stack)
-                { 
-                    if (list[0]== stack[ListIndex][i])
+                {
+                    if (list[0] == stack[ListIndex][i])
                     {
                         if (list == stack[ListIndex]) continue;
                         temp = returnFinalList(stack, temp, ++ListIndex);
                     }
                 }
             }
-            temp.Add(stack[ListIndex][stack[ListIndex].Count-1]);
+            temp.Add(stack[ListIndex][stack[ListIndex].Count - 1]);
             return temp;
         }
     }
