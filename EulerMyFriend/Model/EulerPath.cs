@@ -53,9 +53,17 @@ namespace EulerMyFriend.Model
                     }
                 }
             }
-            Graph finalGraph = GraphCreator.CreateFromMatrix(result);
-            finalEulerPath = CreateEulerPath(result, n, CounterOfConnections, finalGraph);
-            return finalGraph;
+            if (CounterOfConnections == 0)
+            {
+                finalEulerPath = "Pusty graf się wylosowal";
+                return new Graph();
+            }
+            else
+            {
+                Graph finalGraph = GraphCreator.CreateFromMatrix(result);
+                finalEulerPath = CreateEulerPath(result, n, CounterOfConnections, finalGraph);
+                return finalGraph;
+            }
         }
         public static string CreateEulerPath(int[,] result, int n, int count, Graph eulersGraph)
         {
