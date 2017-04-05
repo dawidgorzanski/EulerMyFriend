@@ -217,5 +217,12 @@ namespace EulerMyFriend
             else
                 MessageBox.Show("Niepoprawna ilość wierzchołków lub krawędzi!");
         }
+           private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
+        {
+            //tu kod Radka
+            string toWrite;
+            EulerPath.createEulerGraph(toWrite);
+            MessageBox.Show("TU WYNIK", toWrite);
+        }
     }
 }
