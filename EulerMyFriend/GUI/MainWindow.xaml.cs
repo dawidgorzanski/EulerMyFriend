@@ -221,7 +221,7 @@ namespace EulerMyFriend
         {
             //tu kod Radka
             string toWrite;
-            EulerPath.createEulerGraph(toWrite);
+            EulerPath.createEulerGraph(out toWrite);
             MessageBox.Show("TU WYNIK", toWrite);
         }
     }
