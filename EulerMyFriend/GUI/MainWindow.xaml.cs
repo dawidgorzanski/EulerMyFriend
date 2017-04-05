@@ -227,7 +227,7 @@ namespace EulerMyFriend
            private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
         {
            string toWrite;
-            draw.CurrentGraph=EulerPath.createEulerGraph(out toWrite);
+            draw.CurrentGraph=EulerPath.createEulerGraph((int)intUpDownNodes.Value, out toWrite);
             draw.ClearAll();
             draw.NodeRadius = (int)sliderNodeRadius.Value;
             draw.Radius = (int)sliderRadius.Value;
