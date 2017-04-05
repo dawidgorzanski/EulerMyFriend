@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ namespace EulerMyFriend.Model
 {
     public static class GraphCreator
     {
-        //Nie wiem czy sie przyda, ale na razie jest
+        //Przydało mi się #R
         public static Graph CreateFromMatrix(int[,] MatrixInt)
         {
             int Dimension = MatrixInt.GetLength(0);
@@ -41,14 +41,14 @@ namespace EulerMyFriend.Model
             //Dodanie połączeń między wierzchołkami
             for (int i = 0; i < Nodes; i++)
             {
-                for (int j = i+1; j < Nodes; j++)
+                for (int j = i + 1; j < Nodes; j++)
                 {
                     Connection connection = new Connection();
                     connection.Node1 = fullGraph.Nodes.FirstOrDefault(x => x.ID == i);
                     connection.Node2 = fullGraph.Nodes.FirstOrDefault(x => x.ID == j);
                     fullGraph.Connections.Add(connection);
                 }
-            }          
+            }
 
             return fullGraph;
         }

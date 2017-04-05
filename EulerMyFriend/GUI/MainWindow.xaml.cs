@@ -224,5 +224,17 @@ namespace EulerMyFriend
             //tu kod Radka
             MessageBox.Show("TU WYNIK", "Ścieżka Eulera");
         }
+           private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
+        {
+           string toWrite;
+            draw.CurrentGraph=EulerPath.createEulerGraph(out toWrite);
+            draw.ClearAll();
+            draw.NodeRadius = (int)sliderNodeRadius.Value;
+            draw.Radius = (int)sliderRadius.Value;
+
+            draw.DrawMainCircle();
+            draw.Draw();
+            MessageBox.Show("TU WYNIK", toWrite);
+        }
     }
 }
