@@ -8,11 +8,11 @@ namespace EulerMyFriend.Model
 {
     public static class EulerPath
     {
-        public static Graph createEulerGraph(out string finalEulerPath)
+        public static Graph createEulerGraph(int nodes, out string finalEulerPath)
         {
             Random rand = new Random();
             int CounterOfConnections = 0;
-            int n = 20;
+            int n = nodes;
             double b = 0.5;
             //tworze losowy graf o 10 wierzchołkach i stopniu 0.5
             int[,] result = new int[n, n];
