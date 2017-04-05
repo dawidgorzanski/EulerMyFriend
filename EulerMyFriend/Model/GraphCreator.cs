@@ -313,7 +313,9 @@ namespace EulerMyFriend.Model
                     if (list[0] == stack[ListIndex][i])
                     {
                         if (list == stack[ListIndex]) continue;
-                        temp = returnFinalList(stack, temp, ++ListIndex);
+                        temp = returnFinalList(stack, temp, 1+ListIndex);
+                        stack.RemoveAt(ListIndex + 1);
+                        break;
                     }
                 }
             }
