@@ -219,9 +219,14 @@ namespace EulerMyFriend
         }
            private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
         {
-            //tu kod Radka
-            string toWrite;
-            EulerPath.createEulerGraph(out toWrite);
+           string toWrite;
+            draw.CurrentGraph=EulerPath.createEulerGraph(out toWrite);
+            draw.ClearAll();
+            draw.NodeRadius = (int)sliderNodeRadius.Value;
+            draw.Radius = (int)sliderRadius.Value;
+
+            draw.DrawMainCircle();
+            draw.Draw();
             MessageBox.Show("TU WYNIK", toWrite);
         }
     }
