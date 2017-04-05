@@ -8,7 +8,7 @@ namespace EulerMyFriend.Model
 {
     public static class EulerPath
     {
-        public static Graph createEulerGraph()
+        public static Graph createEulerGraph(out string finalEulerPath)
         {
             Random rand = new Random();
             int CounterOfConnections = 0;
@@ -53,10 +53,11 @@ namespace EulerMyFriend.Model
                     }
                 }
             }
-            Graph finalGraph = CreateEulerPath(result, n, CounterOfConnections, GraphCreator.CreateFromMatrix(result));
+            Graph finalGraph=GraphCreator.CreateFromMatrix(result);
+            finalEulerPath = CreateEulerPath(result, n, CounterOfConnections, finalGraph);
             return finalGraph;
         }
-        public static Graph CreateEulerPath(int[,] result, int n, int count, Graph eulersGraph)
+        public static string CreateEulerPath(int[,] result, int n, int count, Graph eulersGraph)
         {
             int CounterOfConnections = count;
             //wypisuje mój eulerowski graf
@@ -143,18 +144,13 @@ namespace EulerMyFriend.Model
             //złoże teraz mój stos w finalną liste
             List<int> finalList = new List<int>();
             finalList = returnFinalList(StackOfLists, finalList, 0);
-            Graph finalGraph = eulersGraph;
-            for (int i = 1; i < finalList.Count; i++)
+            //tworze z mojej scierzki stringa
+            string EulerPath = "";
+            for (int i = 0; i < finalList.Count; i++)
             {
-                foreach (Connection con in finalGraph.Connections)
-                {
-                    if ((con.Node1.ID == finalList[i - 1] && con.Node2.ID == finalList[i]) || (con.Node1.ID == finalList[i] && con.Node2.ID == finalList[i - 1]))
-                    {
-                        con.LineColor = System.Windows.Media.Brushes.Green;
-                    }
-                }
+                EulerPath = EulerPath + " " + finalList[i];
             }
-            return finalGraph;
+            return EulerPath;
         }
         public static List<int> returnFinalList(List<List<int>> stack, List<int> final, int ListIndex)
         {
