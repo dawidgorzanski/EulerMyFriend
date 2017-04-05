@@ -218,17 +218,24 @@ namespace EulerMyFriend
             draw.Draw();
 
         }
-           private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
-        {
-           string toWrite;
-            draw.CurrentGraph=EulerPath.createEulerGraph((int)intUpDownNodes.Value, out toWrite);
-            draw.ClearAll();
-            draw.NodeRadius = (int)sliderNodeRadius.Value;
-            draw.Radius = (int)sliderRadius.Value;
 
-            draw.DrawMainCircle();
-            draw.Draw();
-            MessageBox.Show("TU WYNIK", toWrite);
+        private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
+        {
+            if (intUpDownNodes.Value != null)
+            {
+                string toWrite;
+                draw.ClearAll();
+                draw.CurrentGraph = EulerPath.CreateEulerGraph((int)intUpDownNodes.Value, out toWrite);
+
+                draw.NodeRadius = (int)sliderNodeRadius.Value;
+                draw.Radius = (int)sliderRadius.Value;
+
+                draw.DrawMainCircle();
+                draw.Draw();
+
+                MessageBox.Show(toWrite, "Ścieżka Eulera");
+            }
+            
         }
     }
 }

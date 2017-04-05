@@ -30,7 +30,7 @@
                             <Label Content="Sekwencja: " Width="105"/>
                             <TextBox Name="tbGraphString" />
                         </DockPanel>
-                        <Button Name="btnDrawGraphFromNodesDegrees" Content="RYSUJ GRAF" Margin="0,5,0,0" Click="btnDrawGraphFromNodesDegrees_Click"/>
+                        <Button Name="btnDrawGraphFromNodesDegrees" Content="Utwórz graf" Margin="0,5,0,0" Click="btnDrawGraphFromNodesDegrees_Click"/>
                     </StackPanel>
                 </GroupBox>
                 
@@ -38,9 +38,9 @@
                     <StackPanel Margin="0,-10,0,-10">
                         <DockPanel>
                             <Label Content="Liczba zmian: " Width="105"/>
-                            <xtlk:IntegerUpDown Name="intUpDownNumberOfChanges" Height="28" Minimum="0" Value="5"/>
+                            <xtlk:IntegerUpDown Name="intUpDownNumberOfChanges" Height="28" Minimum="0" Value="1"/>
                         </DockPanel>
-                        <Button Name="btnRandomizeGraph" Content="RANDOMIZUJ" Margin="0,5,0,0" Click="btnRandomizeGraph_Click"/>
+                        <Button Name="btnRandomizeGraph" Content="Randomizuj" Margin="0,5,0,0" Click="btnRandomizeGraph_Click"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -48,11 +48,12 @@
                     <StackPanel Margin="0,-10,0,-10">
                         <DockPanel>
                             <Label Content="Wierzchołki: " Width="100"/>
-                            <xtlk:IntegerUpDown Name="intUpDownNodes" Height="28" Minimum="0" Value="5"/>
+                            <xtlk:IntegerUpDown Name="intUpDownNodes" Height="28" Minimum="0" Value="4"/>
                             <Label Content="Krawędzie: " Width="100" Margin="15,0,0,0"/>
-                            <xtlk:IntegerUpDown Name="intUpDownEdges" Height="28" Minimum="0" Value="5"/>
+                            <xtlk:IntegerUpDown Name="intUpDownEdges" Height="28" Minimum="0" Value="3"/>
                         </DockPanel>
-                        <Button Name="btnCreateKRegularGraph" Content="STWÓRZ GRAF K-REGULARNY" Margin="0,10,0,0" Click="btnCreateKRegularGraph_Click"/>
+                        <Button Name="btnCreateKRegularGraph" Content="Stwórz graf k-regularny" Margin="0,10,0,0" Click="btnCreateKRegularGraph_Click"/>
+                        <Button Name="btnEulerGraph" Content="Stwórz graf eulerowski" Click="btnEulerGraph_Click" Margin="0,5,0,0"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -60,10 +61,9 @@
                     <StackPanel Margin="0,-10,0,-10">
                         <Button Name="btnFindStronglyConnectedComponent" Content="Znajdź największą spójną składową" Click="btnFindStronglyConnectedComponent_Click"/>
                         <Button Name="btnHamiltonianGraph" Content="Sprawdź czy graf jest hamiltonowski" Click="btnHamiltonianGraph_Click" Margin="0,5,0,0"/>
-                        <Button Name="btnEulerGraph" Content="Stwórz graf Eulerowski" Click="btnEulerGraph_Click" Margin="0,5,0,0"/>
                         <Button Name="btnOpenFromFile" Content="Otwórz plik..." Click="btnOpenFromFile_Click" Margin="0,5,0,0"/>
                         <Button Name="btnSaveToFile" Content="Zapisz do pliku..." Click="btnSaveToFile_Click" Margin="0,5,0,0"/>
-                        <Button Name="btnClear" Content="WYCZYŚĆ" Margin="0,5,0,5" Click="btnClear_Click" />
+                        <Button Name="btnClear" Content="Wyczyść" Margin="0,5,0,5" Click="btnClear_Click" />
                     </StackPanel>
                 </GroupBox>
 
