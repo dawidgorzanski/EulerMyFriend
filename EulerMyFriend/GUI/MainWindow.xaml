@@ -60,13 +60,14 @@
                     <StackPanel Margin="0,-10,0,-10">
                         <Button Name="btnFindStronglyConnectedComponent" Content="Znajdź największą spójną składową" Click="btnFindStronglyConnectedComponent_Click"/>
                         <Button Name="btnHamiltonianGraph" Content="Sprawdź czy graf jest hamiltonowski" Click="btnHamiltonianGraph_Click" Margin="0,5,0,0"/>
+                        <Button Name="btnEulerGraph" Content="Stwórz graf Eulerowski" Click="btnEulerGraph_Click" Margin="0,5,0,0"/>
                         <Button Name="btnOpenFromFile" Content="Otwórz plik..." Click="btnOpenFromFile_Click" Margin="0,5,0,0"/>
                         <Button Name="btnSaveToFile" Content="Zapisz do pliku..." Click="btnSaveToFile_Click" Margin="0,5,0,0"/>
                         <Button Name="btnClear" Content="WYCZYŚĆ" Margin="0,5,0,5" Click="btnClear_Click" />
                     </StackPanel>
                 </GroupBox>
 
-                <DockPanel>
+                <DockPanel Margin="0,5,0,0">
                     <Label Content="Kolor punktów: " Width="105"/>
                     <xtlk:ColorPicker Name="colorPickerPoints" AdvancedButtonHeader="Zaawansowane" AvailableColorsHeader="Dostępne kolory" 
                                       StandardButtonHeader="Standardowe" StandardColorsHeader="Kolory standardowe" SelectedColorChanged="colorPickerPoints_SelectedColorChanged" />

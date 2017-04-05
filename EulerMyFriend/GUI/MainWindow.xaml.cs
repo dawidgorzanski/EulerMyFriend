@@ -218,5 +218,11 @@ namespace EulerMyFriend
             draw.Draw();
 
         }
+
+        private void btnEulerGraph_Click(object sender, RoutedEventArgs e)
+        {
+            //tu kod Radka
+            MessageBox.Show("TU WYNIK", "Ścieżka Eulera");
+        }
     }
 }
