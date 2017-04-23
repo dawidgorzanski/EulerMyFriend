@@ -25,7 +25,12 @@ namespace EulerMyFriend.Model
                 {
                     if (counter <= current)
                         return false;
-                    checkedList[counter - indexGoingDown++]--;
+
+                    if (checkedList[counter - indexGoingDown] == 0)
+                        return false;
+
+                    checkedList[counter - indexGoingDown]--;
+                    indexGoingDown++;
                     current--;
                 }
 
