@@ -104,28 +104,38 @@ namespace EulerMyFriend.Model
             int connectionsCount = oldGraph.Connections.Count;
             if (connectionsCount < 2)
                 return false;
-            for (int i = 0; i < oldGraph.Nodes.Count; ++i)
-                oldGraph.Nodes[i].GraphicalStringConnections = 0;
-            for (int i = 0; i < oldGraph.Connections.Count; ++i)
+            //for (int i = 0; i < oldGraph.Nodes.Count; ++i)
+            //    oldGraph.Nodes[i].GraphicalStringConnections = 0;
+            //for (int i = 0; i < oldGraph.Connections.Count; ++i)
+            //{
+            //    oldGraph.Nodes[oldGraph.Connections[i].Node1.ID].GraphicalStringConnections++;
+            //    oldGraph.Nodes[oldGraph.Connections[i].Node2.ID].GraphicalStringConnections++;
+            //}
+            //oldGraph.Nodes.Sort((x, y) => x.GraphicalStringConnections.CompareTo(y.GraphicalStringConnections));
+            //if (oldGraph.Nodes.FindLastIndex(x => x.GraphicalStringConnections == 1) >= oldGraph.Nodes.Count - 2)
+            //{
+            //    oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
+            //    return false;
+            //}
+            //oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
+            for (int i = 0; i < connectionsCount; ++i)
             {
-                oldGraph.Nodes[oldGraph.Connections[i].Node1.ID].GraphicalStringConnections++;
-                oldGraph.Nodes[oldGraph.Connections[i].Node2.ID].GraphicalStringConnections++;
+                if (oldGraph.Connections[i].Node1.ID > oldGraph.Connections[i].Node2.ID)
+                {
+                    Node temp = oldGraph.Connections[i].Node1;
+                    oldGraph.Connections[i].Node1 = oldGraph.Connections[i].Node2;
+                    oldGraph.Connections[i].Node2 = temp;
+                }
             }
-            oldGraph.Nodes.Sort((x, y) => x.GraphicalStringConnections.CompareTo(y.GraphicalStringConnections));
-            if (oldGraph.Nodes.FindLastIndex(x => x.GraphicalStringConnections == 1) >= oldGraph.Nodes.Count - 2)
-            {
-                oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
-                return false;
-            }
-            oldGraph.Nodes.Sort((x, y) => x.ID.CompareTo(y.ID));
-
 
             Random rnd = new Random();
             Connection emptyConnection = oldGraph.Connections.Find(x => x.Node1.ID == 123123123);
             int secureCounter = 1000;
-            while (countChanges > 0 && secureCounter > 0)
+            while (countChanges > 0)
             {
                 secureCounter--;
+                if (secureCounter == 0)
+                    return false;
                 int id1 = rnd.Next(0, connectionsCount);
                 int id2 = rnd.Next(0, connectionsCount);
                 if (id1 == id2)
@@ -135,20 +145,56 @@ namespace EulerMyFriend.Model
                 if (c1.Node1.ID == c2.Node1.ID || c1.Node1.ID == c2.Node2.ID || c1.Node2.ID == c2.Node1.ID ||
                     c1.Node2.ID == c2.Node2.ID)
                     continue;
+                Node a = c1.Node1;
                 Node b = c1.Node2;
+                Node c = c2.Node1;
                 Node d = c2.Node2;
-                Connection check1 = oldGraph.Connections.Find(x => (x.Node1.ID == c1.Node1.ID && x.Node2.ID == d.ID));
-                if (check1 != emptyConnection)
-                    continue;
-                check1 = oldGraph.Connections.Find(x => (x.Node1.ID == c2.Node1.ID && x.Node2.ID == b.ID));
-                if (check1 != emptyConnection)
-                    continue;
-                c1.Node2 = d;
-                c2.Node2 = b;
-                if (secureCounter == 0)
-                    return false;
 
-                countChanges--;
+                if (emptyConnection == oldGraph.Connections.Find(x => x.Node1.ID == a.ID && x.Node2.ID == c.ID))
+                {
+                    if (b.ID > d.ID)
+                    {
+                        if (emptyConnection == oldGraph.Connections.Find(x => x.Node1.ID == d.ID && x.Node2.ID == b.ID))
+                        {
+                            c1.Node2 = c;
+                            c2.Node1 = d;
+                            c2.Node2 = b;
+                            countChanges--;
+                        }
+                    }
+                    else
+                    {
+                        if (emptyConnection == oldGraph.Connections.Find(x => x.Node1.ID == b.ID && x.Node2.ID == d.ID))
+                        {
+                            c1.Node2 = c;
+                            c2.Node1 = b;
+                            countChanges--;
+                        }
+                    }
+                }
+                else if (emptyConnection == oldGraph.Connections.Find(x => x.Node1.ID == a.ID && x.Node2.ID == d.ID))
+                {
+                    if (b.ID > c.ID)
+                    {
+                        if (emptyConnection == oldGraph.Connections.Find(x => x.Node1.ID == c.ID && x.Node2.ID == b.ID))
+                        {
+                            c1.Node2 = d;
+                            c2.Node1 = c;
+                            c2.Node2 = b;
+                            countChanges--;
+                        }
+                    }
+                    else
+                    {
+                        if (emptyConnection == oldGraph.Connections.Find(x => x.Node1.ID == b.ID && x.Node2.ID == c.ID))
+                        {
+                            c1.Node2 = d;
+                            c2.Node1 = b;
+                            c2.Node2 = c;
+                            countChanges--;
+                        }
+                    }
+                }
             }
             return true;
         }
